@@ -130,14 +130,20 @@ pair<Point, Point> closestPairRecursive(const vector<pair<Point, int>>& Px, cons
     }
   }
 
-  pair<Point, Point> minDistPairInS = min_element(distances.begin(), distances.end(), [] (const auto& dist1, const auto& dist2) {
-    return dist1.second < dist2.second;
-  })->first;
-  Point s = minDistPairInS.first, sPrime = minDistPairInS.second;
+  if (!distances.empty()) {
 
-  if (s.dist(sPrime) < delta) {
-    return {s, sPrime};
-  } else if (q0.dist(q1) < r0.dist(r1)) {
+    pair<Point, Point> minDistPairInS = min_element(distances.begin(), distances.end(), [] (const auto& dist1, const auto& dist2) {
+      return dist1.second < dist2.second;
+    })->first;
+    Point s = minDistPairInS.first, sPrime = minDistPairInS.second;
+
+    if (s.dist(sPrime) < delta) {
+      return {s, sPrime};
+    }
+  
+  }
+  
+  if (q0.dist(q1) < r0.dist(r1)) {
     return {q0, q1};
   } else {
     return {r0, r1};
